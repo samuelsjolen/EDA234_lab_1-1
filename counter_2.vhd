@@ -44,12 +44,11 @@ begin
 			sec_clk <= '0'; 
 			counter_sec <= 0;
 		else
-
    		  if counter_sec = 2500 then
-		    counter_sec <= 0;
-		    sec_clk <= not sec_clk;
-		  else
-		    counter_sec <= counter_sec + 1; 
+		      counter_sec <= 0;
+		      sec_clk <= not sec_clk;
+		    else
+		      counter_sec <= counter_sec + 1; 
 		  end if;
 		end if;  
 	end if;
@@ -88,28 +87,27 @@ end process an_proc;
 DcadCnt : process (sec_clk, reset)
  begin
     if reset = '1' then
-	Decad <= (OTHERS => '0');
- 	tio_pot <= (OTHERS => '0');
+	    Decad <= (OTHERS => '0');
+ 	    tio_pot <= (OTHERS => '0');
     elsif sec_clk = '1' then
-        Decad <= Decad + 1;
-	if Decad = "1001" then -- Decad = 9
-		Decad <= (OTHERS => '0');
-        end if; -- Decad
-       
+      Decad <= Decad + 1;
+	    if Decad = "1001" then -- Decad = 9
+		    Decad <= (OTHERS => '0');
+      end if; -- Decad   
     end if; -- reset
     
     -- Combinatorial part --
-if rising_edge(sec_clk) then
+  if rising_edge(sec_clk) then
       if Decad = "1001" then -- 0, Could be wrong
-        		tio_pot <= tio_pot + 1;
-		  if tio_pot = "0101" then
-                	  tio_pot <=(OTHERS => '0');
-		  end if;
- 	end if;
-    end if; -- Decad    
- end process DcadCnt;
+        	tio_pot <= tio_pot + 1;
+		    if tio_pot = "0101" then
+          tio_pot <=(OTHERS => '0');
+		    end if;
+ 	    end if;
+  end if; -- Decad    
+end process DcadCnt;
  
-MUX : process (Decad, tio_pot)
+MUX : process (Decad, tio_pot, LED_activate, clk)
 begin
 	if LED_activate = '1' then
 		num <= Decad; 
@@ -121,30 +119,30 @@ begin
 end process; 
 
  
- display_output_proc : process (num)
+ display_output_proc : process (num, clk)
  begin
 
     case num is
         when "0000" =>
-            SEG <= "11000000";
+            SEG <= "11000000"; -- C0
         when "0001" =>
-            SEG <= "11111001";
+            SEG <= "11111001"; -- F9
         when "0010" =>
-            SEG <= "10100100";
+            SEG <= "10100100"; -- A4
         when "0011" =>
-            SEG <= "10110000";
+            SEG <= "10110000"; -- B0
         when "0100" =>
-            SEG <= "11000000";                                                
+            SEG <= "10011001"; -- 99                          
         when "0101" =>
-            SEG <= "10010010";        
+            SEG <= "10010010"; -- 92
         when "0110" =>
-            SEG <= "10000010";
+            SEG <= "10000010"; -- 82
         when "0111" =>
-            SEG <= "11111000";
+            SEG <= "11111000"; -- F8
         when "1000" =>
-            SEG <= "10000000";
+            SEG <= "10000000"; -- 80
         when "1001" =>
-            SEG <= "10010010";
+            SEG <= "10010000"; -- 90
 	when others => 
 	    SEG <= "11111101";
      end case;
