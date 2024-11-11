@@ -11,7 +11,7 @@ component counter is
     Port ( SEG      : out STD_LOGIC_VECTOR (7 downto 0);
            AN       : out STD_LOGIC_VECTOR (7 downto 0);
            clk      : in STD_LOGIC;
-           reset    : in STD_LOGIC;
+           resetn    : in STD_LOGIC;
            Decad_db : out std_logic_vector(3 downto 0);
 	   tio_pot_db : out std_logic_vector(3 downto 0));
            --CE       : in STD_LOGIC;
@@ -21,7 +21,7 @@ end component counter;
 
 signal clk : std_logic := '0';
 constant PERIOD : time := 10 ns; 
-signal reset : std_logic;
+signal resetn : std_logic;
 signal SEG : STD_LOGIC_vector(7 downto 0);
 signal AN : STD_LOGIC_vector(7 downto 0);
 signal Decad_db : std_logic_vector(3 downto 0);
@@ -36,7 +36,7 @@ begin
 	    port map(SEG => SEG,
 		     AN => AN,
 		     clk => clk,
-	    	     reset => reset,
+	    	     resetn => resetn,
 	             Decad_db => Decad_db,
                      tio_pot_db => tio_pot_db);
 
@@ -44,11 +44,11 @@ begin
 	
 reset_proc: process
 begin
- reset <= '0';
+ resetn <= '1';
  wait for PERIOD;
- reset <= '1';
+ resetn <= '0';
  wait for PERIOD;
- reset <= '0';
+ resetn <= '1';
  wait;
 end process;
 
@@ -64,6 +64,8 @@ for jdx in 0 to 4 loop
      assert(Decad_db = std_logic_vector(cnt_up)) report "missmatch decad" severity warning;
      assert(tio_pot_db = std_logic_vector(cnt_tio)) report "missmatch tio_pot" severity warning; 
     end loop;
+      wait for 50000 ns;
+      cnt_up := (others => '0');
       cnt_tio := cnt_tio + 1;
 end loop; 
 

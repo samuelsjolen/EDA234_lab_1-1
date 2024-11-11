@@ -9,7 +9,7 @@ add wave -radix unsigned /counter_tb/counter_inst/num
 add wave -radix unsigned /counter_tb/counter_inst/Decad
 add wave -radix unsigned /counter_tb/counter_inst/tio_pot
 add wave -divider "Others"
-add wave reset
+add wave resetn
 add wave SEG
 add wave AN
 add wave /counter_tb/counter_inst/LED_activate

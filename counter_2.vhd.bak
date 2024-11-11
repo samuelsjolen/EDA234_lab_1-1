@@ -7,11 +7,11 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity counter is
-    Port ( SEG        : out STD_LOGIC_VECTOR (7 downto 0);
-           AN         : out STD_LOGIC_VECTOR (7 downto 0);
-           clk        : in STD_LOGIC;
-           resetn     : in STD_LOGIC;
-           Decad_db   : out std_logic_vector(3 downto 0);
+    Port ( SEG      : out STD_LOGIC_VECTOR (7 downto 0);
+           AN       : out STD_LOGIC_VECTOR (7 downto 0);
+           clk      : in STD_LOGIC;
+           reset    : in STD_LOGIC;
+           Decad_db : out std_logic_vector(3 downto 0);
            tio_pot_db : out std_logic_vector(3 downto 0));
            --CE       : in STD_LOGIC;
            --Cnt      : out STD_LOGIC_VECTOR (7 downto 0));
@@ -20,23 +20,19 @@ end counter;
 
 architecture behavioral of counter is
 
-signal sec_clk      : STD_LOGIC; 
+signal sec_clk : STD_LOGIC; 
 signal LED_activate : STD_logic; 
-signal refresh      : Unsigned(18 downto 0); 
+signal refresh : Unsigned(18 downto 0); 
 signal counter_sec  : integer;
 signal counter_disp : integer;
-signal reset        : std_logic;
-signal num          : unsigned(3 downto 0);   
-signal Decad        : unsigned(3 downto 0);
-signal tio_pot      : unsigned(3 downto 0);
+signal num : unsigned(3 downto 0);   
+signal Decad : unsigned(3 downto 0);
+signal tio_pot : unsigned(3 downto 0);
 
 begin
 
 Decad_db <= std_logic_vector(Decad);
 tio_pot_db <= std_logic_vector(tio_pot);
-
-reset <= not resetn;
-
 sec_counter : process (clk)
 begin
 	if rising_edge(clk) then 
@@ -78,7 +74,7 @@ LED_activate <= refresh(9);
 	    if LED_activate = '1' then 
         	AN <= "11111110"; --Aktiverar AN0
    	    elsif LED_activate = '0' then
-        	AN <= "11111101"; --Activates AN1
+        	AN <= "11111101";
     	    end if;
     end if; 
   end if;
@@ -109,7 +105,7 @@ if rising_edge(sec_clk) then
     end if; -- Decad    
  end process DcadCnt;
  
-MUX : process (Decad, tio_pot)
+MUX : process (LED_activate)
 begin
 	if LED_activate = '1' then
 		num <= Decad; 
@@ -121,7 +117,7 @@ begin
 end process; 
 
  
- display_output_proc : process (num)
+ display_output_proc : process (clk, reset, Decad, tio_pot, LED_activate)
  begin
 
     case num is

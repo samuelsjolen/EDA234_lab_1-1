@@ -10,25 +10,25 @@ z2
 cModel Technology
 dC:/intelFPGA/20.1
 Ecounter
-Z0 w1731055984
+Z0 w1731339959
 Z1 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 0
+!i122 10
 Z4 dC:/Chalmers/EDA234/Lab_1-1
-Z5 8C:/Chalmers/EDA234/Lab_1-1/counter_2.vhd
-Z6 FC:/Chalmers/EDA234/Lab_1-1/counter_2.vhd
+Z5 8C:\Chalmers\EDA234\Lab_1-1\counter_2.vhd
+Z6 FC:\Chalmers\EDA234\Lab_1-1\counter_2.vhd
 l0
 L9 1
-VOc6E72ICd5a9WSh@m69Mg2
-!s100 hWg5f52n9Ak^:PMNKI>M62
+V]YzlTBWN22g343AcAL_A?3
+!s100 =?]8J_7K^V=lYDIJ621_c0
 Z7 OV;C;2020.1;71
 32
-Z8 !s110 1731072041
+Z8 !s110 1731340055
 !i10b 1
-Z9 !s108 1731072041.000000
-Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Chalmers/EDA234/Lab_1-1/counter_2.vhd|
-Z11 !s107 C:/Chalmers/EDA234/Lab_1-1/counter_2.vhd|
+Z9 !s108 1731340055.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Chalmers\EDA234\Lab_1-1\counter_2.vhd|
+Z11 !s107 C:\Chalmers\EDA234\Lab_1-1\counter_2.vhd|
 !i113 1
 Z12 o-work work -2002 -explicit
 Z13 tExplicit 1 CvgOpt 0
@@ -36,12 +36,12 @@ Abehavioral
 R1
 R2
 R3
-DEx4 work 7 counter 0 22 Oc6E72ICd5a9WSh@m69Mg2
-!i122 0
-l32
-L21 133
-VV`YiOkiNM6RH?ggPP3N9?0
-!s100 NhUVLLG0YZV_=KbdYD@c^3
+DEx4 work 7 counter 0 22 ]YzlTBWN22g343AcAL_A?3
+!i122 10
+l33
+L21 137
+V@^OWSZTdiCMgikLzPo;i90
+!s100 cn>XF]:YP9SXk59RBzA;51
 R7
 32
 R8
@@ -53,11 +53,11 @@ R11
 R12
 R13
 Ecounter_tb
-Z14 w1731055975
+Z14 w1731339628
 R1
 R2
 R3
-!i122 1
+!i122 11
 R4
 Z15 8C:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl
 Z16 FC:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl
@@ -71,7 +71,7 @@ R8
 !i10b 1
 R9
 Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl|
-!s107 C:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl|
+Z18 !s107 C:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl|
 !i113 1
 R12
 R13
@@ -79,19 +79,19 @@ Acounter_tb_arch
 R1
 R2
 R3
-DEx4 work 10 counter_tb 0 22 `eoahm4F=`m4L]lH1V[Cf2
-!i122 1
+Z19 DEx4 work 10 counter_tb 0 22 `eoahm4F=`m4L]lH1V[Cf2
+!i122 11
 l32
-L8 67
-VU6d1@Zmn3VA66W[9CzC<k0
-!s100 ;zXhSkbO:OSGba;I7i`Bk1
+Z20 L8 69
+Z21 V;=edOPPN>BTgA:?Wm5Y2X2
+Z22 !s100 GX;moM;BH[b<29lTNlKOg1
 R7
 32
 R8
 !i10b 1
 R9
 R17
-Z18 !s107 C:/Chalmers/EDA234/Lab_1-1/counter_tb.vhdl|
+R18
 !i113 1
 R12
 R13
