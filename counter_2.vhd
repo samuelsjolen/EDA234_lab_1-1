@@ -8,6 +8,8 @@ entity counter is
         AN         : out STD_LOGIC_VECTOR (7 downto 0);
         clk        : in STD_LOGIC;
         resetn     : in STD_LOGIC
+        -- Decad_db : out std_logic_vector(3 downto 0);     -- Used for debugging
+	    -- tio_pot_db : out std_logic_vector(3 downto 0));  -- Used for debugging
     );
 end counter;
 
@@ -25,10 +27,10 @@ signal tio_pot        : unsigned(3 downto 0);
 
 begin
 
--- Reset logic (confirm polarity on actual hardware)
+-- Reset logic, inverted on board
 reset <= not resetn;
 
--- Counter for 1-second intervals, but using enable signal instead of derived `sec_clk`
+-- Counter 
 sec_counter : process (clk, reset)
 begin
 	if rising_edge(clk) then 
@@ -47,7 +49,7 @@ begin
 	end if;
 end process;
 
--- Refresh signal for multiplexing display
+-- Process to create a toggling signal
 refresh_proc : process (clk, reset)
 begin
 	if rising_edge(clk) then
@@ -59,10 +61,9 @@ begin
 	end if;
 end process;
 
--- Generate LED activate signal for multiplexing, adjusted frequency to improve display refresh rate
-LED_activate <= refresh(13);  -- Change this division if display flickers or ghosts
+LED_activate <= refresh(13);  -- Change this division if display flickers
 
--- AN output activation based on LED_activate toggle
+-- Process to switch between AN1 and AN0
 an_proc : process (clk, reset, LED_activate)
 begin
 	if rising_edge(clk) then
@@ -78,7 +79,7 @@ begin
 	end if;
 end process;
 
--- Counter for displaying decimal values; use sec_clk_enable instead of sec_clk for timing
+-- Counter for displaying values
 DcadCnt : process (clk, reset)
 begin
 	if rising_edge(clk) then
@@ -90,7 +91,7 @@ begin
 			if Decad = "1001" then  -- If Decad reaches 9
 				Decad <= (others => '0');
 				tio_pot <= tio_pot + 1;
-				if tio_pot = "0101" then  -- If tio_pot reaches 5 (50 counts)
+				if tio_pot = "0101" then  -- If tio_pot reaches 5
 					tio_pot <= (others => '0');
 				end if;
 			end if;
@@ -98,7 +99,7 @@ begin
 	end if;
 end process;
 
--- Multiplexer logic for display selection
+-- Multiplexer deciding which digit to send, depending on which segment is lit
 MUX : process (Decad, tio_pot, LED_activate)
 begin
 	if LED_activate = '1' then
@@ -108,7 +109,7 @@ begin
 	end if; 
 end process; 
 
--- Display output logic with confirmed SEG mappings
+-- Display output 
 display_output_proc : process (num)
 begin
 	case num is
